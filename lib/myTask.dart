@@ -17,8 +17,54 @@ class MyTask extends StatefulWidget {
 class _MyTaskState extends State<MyTask> {
 
   void _logout(){
-    widget.googleSignIn.disconnect();
-    Navigator.pop(context);
+
+    AlertDialog alertDialog = new AlertDialog(
+      title: new Text("¿Seguro que desea cerrar sesión?"),
+      content: Container(
+        height: 215,
+        child: new Column(
+          children: <Widget>[
+            ClipOval(
+              child: new Image.network(widget.user.photoUrl),
+            ),
+            new Padding(padding: EdgeInsets.only(top: 30)),
+            new Text("Se finalizará la sesión actual y se volverá al login", textAlign: TextAlign.center,),
+            new Divider(),
+            new Row(
+              children: <Widget>[
+                InkWell(
+                  child: Column(
+                    children: <Widget>[
+                      Icon(Icons.check)
+                    ],
+                  ),
+                  onTap: (){
+                    widget.googleSignIn.disconnect();
+                    Navigator.pop(context);
+                  },
+                ),
+                InkWell(
+                  child: Column(
+                    children: <Widget>[
+                      Icon(Icons.close)
+                    ],
+                  ),
+                  onTap: (){
+
+                  },
+                )
+              ],
+            )
+          ],
+        )
+      ),
+    );
+
+    //alertDialog.build(context);
+    showDialog(context: context, child: alertDialog);
+
+    //widget.googleSignIn.disconnect();
+    //Navigator.pop(context);
   }
 
   @override
